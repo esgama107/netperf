@@ -28,7 +28,7 @@ on:
       ref:
         description: 'MsQuic Branch or Commit'
         required: false
-        default: 'main'
+        default: 'user/esg/phase0-fix-regression'
         type: string
       filter:
         description: 'Custom Test Filter'
@@ -57,7 +57,7 @@ on:
       commit:
         description: 'Publish Results'
         required: false
-        default: false
+        default: true
         type: boolean
   pull_request:
     branches:
@@ -219,7 +219,7 @@ jobs:
       with:
         run-cmd: |
           Write-Host "Downloading Watermark_Regression.json file"
-          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/microsoft/netperf/sqlite/watermark_regression.json" -OutFile "watermark_regression.json" -UseBasicParsing
+          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/esgama107/netperf/sqlite/watermark_regression.json" -OutFile "watermark_regression.json" -UseBasicParsing
     - name: Run Secnetperf Script
       if: ${{ matrix.role == 'client' }}
       timeout-minutes: 40
@@ -308,10 +308,10 @@ jobs:
         name: Release-${{env.OS}}-${{ matrix.os == 'windows-2025' && 'windows-2022' || matrix.os }}-${{ matrix.arch }}-${{ matrix.tls }}-Perf
         path: artifacts
     - name: Download Regression.json file
-      run: Invoke-WebRequest -Uri "https://raw.githubusercontent.com/microsoft/netperf/sqlite/regression.json" -OutFile "regression.json"
+      run: Invoke-WebRequest -Uri "https://raw.githubusercontent.com/esgama107/netperf/sqlite/regression.json" -OutFile "regression.json"
       shell: pwsh
     - name: Download Watermark_Regression.json file
-      run: Invoke-WebRequest -Uri "https://raw.githubusercontent.com/microsoft/netperf/sqlite/watermark_regression.json" -OutFile "watermark_regression.json"
+      run: Invoke-WebRequest -Uri "https://raw.githubusercontent.com/esgama107/netperf/sqlite/watermark_regression.json" -OutFile "watermark_regression.json"
       shell: pwsh
     - name: Run secnetperf
       shell: pwsh
@@ -403,7 +403,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       with:
-        repository: microsoft/netperf
+        repository: esgama107/netperf
         ref: sqlite
     - uses: actions/download-artifact@8caf195ad4b1dee92908e23f56eeb0696f1dd42d
       with:
@@ -412,8 +412,8 @@ jobs:
       run: rm -rf *.py
     - name: Fetch sql.py and generate_historical_data.py
       run: |
-        wget https://raw.githubusercontent.com/microsoft/netperf/main/pipeline/sql.py
-        wget https://raw.githubusercontent.com/microsoft/netperf/main/pipeline/generate_historical_data.py
+        wget https://raw.githubusercontent.com/esgama107/netperf/user/esg/phase0-fix-regression/pipeline/sql.py
+        wget https://raw.githubusercontent.com/esgama107/netperf/user/esg/phase0-fix-regression/pipeline/generate_historical_data.py
     - run: python sql.py
     - run: python generate_historical_data.py
     - name: Move all generated historical data json files to a new folder
@@ -474,11 +474,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       with:
-        repository: microsoft/netperf
+        repository: esgama107/netperf
         ref: sqlite
     - run: ls
     - name: Fetch regression.py from main branch
-      run: wget https://raw.githubusercontent.com/microsoft/netperf/main/pipeline/regression.py -O regression.py
+      run: wget https://raw.githubusercontent.com/esgama107/netperf/user/esg/phase0-fix-regression/pipeline/regression.py -O regression.py
     - run: python regression.py --featureint 2
     - name: Git commit
       if: ${{ (github.event_name == 'repository_dispatch' && github.event.client_payload.pr == '') || inputs.commit }}
