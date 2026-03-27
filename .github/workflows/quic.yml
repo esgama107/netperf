@@ -166,7 +166,7 @@ jobs:
 
   prepare-matrix:
     name: Prepare lab matrix, and Azure 1ES matrix.
-    uses: es/netperf/.github/workflows/prepare-matrix.yml@main
+    uses: microsoft/netperf/.github/workflows/prepare-matrix.yml@main
     with:
       matrix_filename: 'quic_matrix.json'
       workflowId: ${{ github.run_id }}-${{ github.run_attempt }}
@@ -354,7 +354,7 @@ jobs:
     name: Attempting to reset lab. Status of this job does not indicate result of lab reset. Look at job details.
     needs: [run-secnetperf]
     if: ${{ always() }}
-    uses: esgama107/netperf/.github/workflows/schedule-lab-reset.yml@main
+    uses: microsoft/netperf/.github/workflows/schedule-lab-reset.yml@main
     with:
       workflowId: ${{ github.run_id }}
 
