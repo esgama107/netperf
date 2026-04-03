@@ -412,8 +412,8 @@ jobs:
       run: rm -rf *.py
     - name: Fetch sql.py and generate_historical_data.py
       run: |
-        wget https://raw.githubusercontent.com/esgama107/netperf/sqlite/pipeline/sql.py
-        wget https://raw.githubusercontent.com/esgama107/netperf/sqlite/pipeline/generate_historical_data.py
+        wget https://raw.githubusercontent.com/esgama107/netperf/main/pipeline/sql.py
+        wget https://raw.githubusercontent.com/esgama107/netperf/main/pipeline/generate_historical_data.py
     - run: python sql.py
     - run: python generate_historical_data.py
     - name: Move all generated historical data json files to a new folder
