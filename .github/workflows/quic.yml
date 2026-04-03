@@ -412,8 +412,8 @@ jobs:
       run: rm -rf *.py
     - name: Fetch sql.py and generate_historical_data.py
       run: |
-        wget https://raw.githubusercontent.com/microsoft/netperf/main/pipeline/sql.py
-        wget https://raw.githubusercontent.com/microsoft/netperf/main/pipeline/generate_historical_data.py
+        wget https://raw.githubusercontent.com/microsoft/netperf/user/esg/test-pipeline/pipeline/sql.py
+        wget https://raw.githubusercontent.com/microsoft/netperf/user/esg/test-pipeline/pipeline/generate_historical_data.py
     - run: python sql.py
     - run: python generate_historical_data.py
     - name: Move all generated historical data json files to a new folder
@@ -478,7 +478,7 @@ jobs:
         ref: sqlite
     - run: ls
     - name: Fetch regression.py from main branch
-      run: wget https://raw.githubusercontent.com/microsoft/netperf/main/pipeline/regression.py -O regression.py
+      run: wget https://raw.githubusercontent.com/microsoft/netperf/user/esg/test-pipeline/pipeline/regression.py -O regression.py
     - run: python regression.py --featureint 2
     - name: Git commit
       if: ${{ (github.event_name == 'repository_dispatch' && github.event.client_payload.pr == '') || inputs.commit }}
