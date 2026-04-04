@@ -128,7 +128,7 @@ jobs:
       matrix:
         os: ['windows-2022']
         tls: [schannel] # , quictls]
-    uses: microsoft/msquic/.github/workflows/build-reuse-win.yml@main
+    uses: esgama107/msquic/.github/workflows/build-reuse-win.yml@main
     with:
       os: ${{ matrix.os }}
       tls: ${{ matrix.tls }}
@@ -142,7 +142,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ['windows-2022']
-    uses: microsoft/msquic/.github/workflows/build-reuse-winkernel.yml@main
+    uses: esgama107/msquic/.github/workflows/build-reuse-winkernel.yml@main
     with:
       os: ${{ matrix.os }}
       ref: ${{ github.event.client_payload.sha || github.event.client_payload.ref || inputs.ref || 'main' }}
@@ -156,7 +156,7 @@ jobs:
         os: ['ubuntu-24.04']
         tls: ['quictls']
         iouring: ['', '-UseIoUring']
-    uses: microsoft/msquic/.github/workflows/build-reuse-unix.yml@main
+    uses: esgama107/msquic/.github/workflows/build-reuse-unix.yml@main
     with:
       os: ${{ matrix.os }}
       tls: ${{ matrix.tls }}
@@ -187,7 +187,7 @@ jobs:
     - name: Checkout microsoft/msquic
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       with:
-        repository: microsoft/msquic
+        repository: esgama107/msquic
         ref: ${{ github.event.client_payload.sha || github.event.client_payload.ref || inputs.ref || 'main' }}
     - name: Checkout code
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
@@ -287,7 +287,7 @@ jobs:
     - name: Checkout microsoft/msquic
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       with:
-        repository: microsoft/msquic
+        repository: esgama107/msquic
         ref: ${{ github.event.client_payload.sha || github.event.client_payload.ref || inputs.ref || 'main' }}
     - name: Checkout code
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
